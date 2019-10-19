@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>swa</groupId>
 		<artifactId>swa</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>swa-app</artifactId>
