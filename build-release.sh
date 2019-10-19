@@ -18,7 +18,7 @@ mvn install:install-file \
  -DgroupId=swa \
  -DartifactId=swa-app \
  -Dversion=${VERSION} \
- -Dfile=${DIR}/swa-spi/target/swa-app-${VERSION}.jar \
+ -Dfile=${DIR}/swa-app/target/swa-app-${VERSION}.jar \
  -Dpackaging=jar \
  -DgeneratePom=false \
  -DpomFile=${DIR}/swa-app/pom.xml \
