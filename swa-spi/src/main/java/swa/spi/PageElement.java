@@ -10,10 +10,7 @@ import lombok.Value;
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Column {
-
+public class PageElement {
+  String label;
   String value;
-  
-  Link link;
-
 }

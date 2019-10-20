@@ -1,19 +1,20 @@
 package swa.example;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import spark.Service;
-import swa.SimpleWebApplication;
+import swa.SWABuilder;
 import swa.spi.CheckBoxFormElement;
 import swa.spi.Column;
 import swa.spi.Form;
 import swa.spi.FormElement;
-import swa.spi.Menu;
+import swa.spi.Link;
 import swa.spi.Option;
+import swa.spi.Page;
+import swa.spi.PageElement;
 import swa.spi.ReadOnlyFormElement;
 import swa.spi.Row;
 import swa.spi.SelectFormElement;
@@ -25,10 +26,10 @@ public class Example {
   public static void main(String[] args) throws IOException {
     Service service = Service.ignite();
 
-    Table actionTable1 = new Table() {
+    Table table1 = new Table() {
 
       @Override
-      public String getLink() {
+      public String getLinkName() {
         return "test1";
       }
 
@@ -60,10 +61,10 @@ public class Example {
       }
     };
 
-    Table actionTable2 = new Table() {
+    Table table2 = new Table() {
 
       @Override
-      public String getLink() {
+      public String getLinkName() {
         return "test2";
       }
 
@@ -80,6 +81,7 @@ public class Example {
                                                .build(),
                       Column.builder()
                             .value("test2")
+                            .link(Link.create("/page2/", id))
                             .build()))
                   .build();
       }
@@ -93,12 +95,12 @@ public class Example {
     Form form = new Form() {
 
       @Override
-      public String getLink() throws IOException {
+      public String getLinkName() throws IOException {
         return "create";
       }
 
       @Override
-      public List<FormElement> getElements(Map<String, String[]> queryParams) {
+      public List<FormElement> getElements(Map<String, String[]> queryParams, String[] splat) {
         FormElement element1 = TextFormElement.builder()
                                               .name("name")
                                               .label("label")
@@ -142,12 +144,12 @@ public class Example {
     Form formError1 = new Form() {
 
       @Override
-      public String getLink() throws IOException {
+      public String getLinkName() throws IOException {
         return "error1";
       }
 
       @Override
-      public List<FormElement> getElements(Map<String, String[]> queryParams) {
+      public List<FormElement> getElements(Map<String, String[]> queryParams, String[] splat) {
         FormElement element1 = TextFormElement.builder()
                                               .name("name")
                                               .label("label")
@@ -158,7 +160,7 @@ public class Example {
       }
 
       @Override
-      public String execute(Map<String, String[]> queryParams) throws Exception {
+      public Link execute(Map<String, String[]> queryParams) throws Exception {
         throw new RuntimeException("this is the error");
       }
 
@@ -167,27 +169,84 @@ public class Example {
     Form formError2 = new Form() {
 
       @Override
-      public String getLink() throws IOException {
+      public String getLinkName() throws IOException {
         return "error2";
       }
 
       @Override
-      public List<FormElement> getElements(Map<String, String[]> queryParams) {
+      public List<FormElement> getElements(Map<String, String[]> queryParams, String[] splat) {
         throw new RuntimeException("this is the error");
       }
 
     };
 
-    List<Table> tables = Arrays.asList(actionTable1, actionTable2);
-    List<Form> forms = Arrays.asList(form, formError1, formError2);
+    Page page1 = new Page() {
 
-    List<Menu> menus = new ArrayList<>();
-    menus.add(Menu.create(actionTable1));
-    menus.add(Menu.create(actionTable2));
-    menus.add(Menu.create(form));
-    menus.add(Menu.create(formError1));
-    menus.add(Menu.create(formError2));
+      @Override
+      public String getLinkName() throws IOException {
+        return "page1";
+      }
 
-    SimpleWebApplication.setup(service, "test1", menus, tables, forms);
+      @Override
+      public List<PageElement> getElements(Map<String, String[]> queryParams, String[] splat) throws Exception {
+        return Arrays.asList(PageElement.builder()
+                                        .label("label1")
+                                        .value("test")
+                                        .build());
+      }
+    };
+
+    Page page2 = new Page() {
+
+      @Override
+      public String getLinkName() throws IOException {
+        return "page2";
+      }
+
+      @Override
+      public List<PageElement> getElements(Map<String, String[]> queryParams, String[] splat) throws Exception {
+        if (splat == null || splat.length == 0) {
+          throw new RuntimeException("Missing id");
+        }
+        String id = splat[0];
+        return Arrays.asList(PageElement.builder()
+                                        .label("label1")
+                                        .value(id)
+                                        .build());
+      }
+    };
+
+    Page page3 = new Page() {
+
+      @Override
+      public String getLinkName() throws IOException {
+        return "page3";
+      }
+
+      @Override
+      public List<PageElement> getElements(Map<String, String[]> queryParams, String[] splat) throws Exception {
+        return Arrays.asList(PageElement.builder()
+                                        .label("label1")
+                                        .value("test")
+                                        .build());
+      }
+    };
+
+    SWABuilder builder = SWABuilder.create(service);
+    builder.startMenu()
+           .addHtml(table1)
+           .addHtml(table2)
+           .addHtml(form)
+           .addHtml(page1)
+           .addHtml(formError1)
+           .addHtml(formError2)
+           .stopMenu()
+           .startMenu("menu2")
+           .addHtml(page3)
+           .stopMenu()
+           .addHtml(page2)
+           .setApplicationName("Test App")
+           .build("test1");
+
   }
 }

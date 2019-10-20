@@ -1,0 +1,26 @@
+<#include "header.html">
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <h2>${currentMenuName}</h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <#list elements as element>
+        <tr>
+          <th nowrap="true">
+            ${element.label}
+          </th>
+          <td nowrap="true">
+            <#if (element.value)??>
+              ${element.value}
+            <#else>
+              &nbsp;
+            </#if>
+          </td>
+          <td width="100%">&nbsp;</td>
+        </tr>
+      </#list>
+    </table>
+  </div>
+</main>
+
+<#include "footer.html">

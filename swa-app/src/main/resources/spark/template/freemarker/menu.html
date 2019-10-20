@@ -1,0 +1,41 @@
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <div class="sidebar-sticky">
+    <ul class="nav flex-column">
+      <#list defaultMenus as menu>
+        <li class="nav-item">
+          <#if menu.name == currentMenuName>
+            <a class="nav-link active" href="${menu.link}">
+          <#else>
+            <a class="nav-link" href="${menu.link}">
+          </#if>
+            <span data-feather="${menu.icon}"></span> ${menu.name}
+            <#if menu.name == currentMenuName>
+              <span class="sr-only">(current)</span>
+            </#if>
+          </a>
+        </li>
+      </#list>
+    </ul>
+    <#list namedMenus?keys as menuName>
+      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+         <span>${menuName}</span>
+      </h6>
+      <ul class="nav flex-column">
+        <#list namedMenus[menuName] as menu>
+          <li class="nav-item">
+            <#if menu.name == currentMenuName>
+              <a class="nav-link active" href="${menu.link}">
+            <#else>
+              <a class="nav-link" href="${menu.link}">
+            </#if>
+              <span data-feather="${menu.icon}"></span> ${menu.name}
+              <#if menu.name == currentMenuName>
+                <span class="sr-only">(current)</span>
+              </#if>
+            </a>
+          </li>
+        </#list>
+      </ul>
+    </#list>
+  </div>
+</nav>

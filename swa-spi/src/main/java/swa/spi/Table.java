@@ -15,8 +15,8 @@ public interface Table extends Html {
     return new ArrayList<>();
   }
 
-  default String execute(String action, String[] ids) throws Exception {
-    return getLink();
+  default Link execute(String action, String[] ids) throws Exception {
+    return Link.root();
   }
 
 }

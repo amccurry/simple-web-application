@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface Form extends Html {
 
-  List<FormElement> getElements(Map<String, String[]> queryParams) throws Exception;
+  List<FormElement> getElements(Map<String, String[]> queryParams, String[] splat) throws Exception;
 
   default String getSubmitButtonName() {
     return "Submit";
@@ -15,8 +15,8 @@ public interface Form extends Html {
     return "Submit";
   }
 
-  default String execute(Map<String, String[]> queryParams) throws Exception {
-    return "";
+  default Link execute(Map<String, String[]> queryParams) throws Exception {
+    return Link.root();
   }
 
   default boolean hasValue(String name, Map<String, String[]> queryParams) {

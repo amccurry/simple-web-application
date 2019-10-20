@@ -24,7 +24,7 @@ public class Menu {
   public static Menu create(Html html) throws IOException {
     return Menu.builder()
                .name(html.getName())
-               .link("/" + html.getLink())
+               .link("/" + html.getLinkName())
                .icon(html.getIcon())
                .build();
   }
