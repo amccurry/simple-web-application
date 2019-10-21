@@ -30,6 +30,7 @@ import swa.spi.TextFormElement;
 public class Example {
 
   public static void main(String[] args) throws IOException {
+
     Service service = Service.ignite();
 
     Table table1 = new Table() {
@@ -222,7 +223,7 @@ public class Example {
 
         ChartDataset dataset4 = ChartDataset.builder()
                                             .label("zxd")
-                                            .values(Arrays.asList(1, 4, 3, 2))
+                                            .values(Arrays.asList(123413L, 423421342L, 323412L, 2242143L))
                                             .build();
 
         ChartElement chart2 = ChartElement.builder()
