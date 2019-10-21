@@ -3,14 +3,15 @@
   <groupId>swa</groupId>
   <artifactId>swa-spi</artifactId>
   <versioning>
-    <release>1.3.1</release>
+    <release>1.3.2</release>
     <versions>
       <version>1.0</version>
       <version>1.1</version>
       <version>1.2</version>
       <version>1.3</version>
       <version>1.3.1</version>
+      <version>1.3.2</version>
     </versions>
-    <lastUpdated>20191021180934</lastUpdated>
+    <lastUpdated>20191021185740</lastUpdated>
   </versioning>
 </metadata>
