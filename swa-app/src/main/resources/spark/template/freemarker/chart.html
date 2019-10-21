@@ -1,6 +1,8 @@
 <script src="/js/chart-2.8.0.js"></script>
 <script>
-  <#list charts as chart>
+  <#list sections as section>
+  <#if (section.chartElements)??>
+  <#list section.chartElements as chart>
     new Chart(document.getElementById('${chart.id}').getContext('2d'), {
         type: 'line',
         data: {
@@ -47,5 +49,7 @@
           responsive: false
         }
     });
+  </#list>
+  </#if>
   </#list>
 </script>

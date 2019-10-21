@@ -23,7 +23,7 @@ import swa.spi.Table;
 
 public class SWABuilder {
 
-  private static final String CHARTS = "charts";
+  private static final String SECTIONS = "sections";
   private static final String APPLICATION_NAME = "applicationName";
   private static final String PAGE_HTML = "page.html";
   private static final String ERROR_MESSAGE = "errorMessage";
@@ -107,9 +107,9 @@ public class SWABuilder {
   public void build(String defaultHtmlElement) {
     Logger logger = _logger.get();
     if (logger != null) {
-      _service.before(
-          (request, response) -> logger.info("request method {} uri {}", request.requestMethod(), request.raw()
-                                                                                                         .getRequestURI()));
+      _service.before((request, response) -> logger.info("request method {} uri {}", request.requestMethod(),
+          request.raw()
+                 .getRequestURI()));
     }
     _service.get("/", (request, response) -> {
       Html html = _htmlElements.get(defaultHtmlElement);
@@ -189,8 +189,7 @@ public class SWABuilder {
                                            .toMap();
         Map<String, Object> model = createModel(page);
         String[] splat = request.splat();
-        model.put(ELEMENTS, page.getElements(map, splat));
-        model.put(CHARTS, page.getCharts(map, splat));
+        model.put(SECTIONS, page.getPagesSections(map, splat));
         return new ModelAndView(model, PAGE_HTML);
       } catch (Exception e) {
         Map<String, Object> model = createModel(page);

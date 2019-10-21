@@ -16,7 +16,9 @@ import swa.spi.FormElement;
 import swa.spi.Link;
 import swa.spi.Option;
 import swa.spi.Page;
+import swa.spi.PageButton;
 import swa.spi.PageElement;
+import swa.spi.PageSection;
 import swa.spi.ReadOnlyFormElement;
 import swa.spi.Row;
 import swa.spi.SelectFormElement;
@@ -190,16 +192,7 @@ public class Example {
       }
 
       @Override
-      public List<PageElement> getElements(Map<String, String[]> queryParams, String[] splat) throws Exception {
-        return Arrays.asList(PageElement.builder()
-                                        .label("label1")
-                                        .value("test")
-                                        .build());
-      }
-
-      @Override
-      public List<ChartElement> getCharts(Map<String, String[]> queryParams, String[] splat) throws Exception {
-
+      public List<PageSection> getPagesSections(Map<String, String[]> queryParams, String[] splat) throws Exception {
         ChartDataset dataset1 = ChartDataset.builder()
                                             .label("abc")
                                             .values(Arrays.asList(1, 2, 3, 4))
@@ -237,7 +230,15 @@ public class Example {
                                           .datasets(Arrays.asList(dataset5))
                                           .chartLabels(Arrays.asList("e", "f", "g", "h"))
                                           .build();
-        return Arrays.asList(chart1, chart2, chart3);
+
+        return Arrays.asList(PageSection.builder()
+                                        .sectionTitle("section title1")
+                                        .chartElements(Arrays.asList(chart1, chart2, chart3))
+                                        .pageElements(Arrays.asList(PageElement.builder()
+                                                                               .label("label1")
+                                                                               .value("test")
+                                                                               .build()))
+                                        .build());
       }
 
     };
@@ -250,14 +251,17 @@ public class Example {
       }
 
       @Override
-      public List<PageElement> getElements(Map<String, String[]> queryParams, String[] splat) throws Exception {
+      public List<PageSection> getPagesSections(Map<String, String[]> queryParams, String[] splat) throws Exception {
         if (splat == null || splat.length == 0) {
           throw new RuntimeException("Missing id");
         }
         String id = splat[0];
-        return Arrays.asList(PageElement.builder()
-                                        .label("label1")
-                                        .value(id)
+        List<PageElement> pageElements = Arrays.asList(PageElement.builder()
+                                                                  .label("label1")
+                                                                  .value(id)
+                                                                  .build());
+        return Arrays.asList(PageSection.builder()
+                                        .pageElements(pageElements)
                                         .build());
       }
     };
@@ -270,10 +274,23 @@ public class Example {
       }
 
       @Override
-      public List<PageElement> getElements(Map<String, String[]> queryParams, String[] splat) throws Exception {
-        return Arrays.asList(PageElement.builder()
-                                        .label("label1")
-                                        .value("test")
+      public List<PageSection> getPagesSections(Map<String, String[]> queryParams, String[] splat) throws Exception {
+        List<PageElement> pageElements = Arrays.asList(PageElement.builder()
+                                                                  .label("label1")
+                                                                  .value("test")
+                                                                  .build());
+        PageButton button1 = PageButton.builder()
+                                       .action("/")
+                                       .name("Home")
+                                       .build();
+        PageButton button2 = PageButton.builder()
+                                       .action("/")
+                                       .name("Root")
+                                       .build();
+        List<PageButton> pageButtons = Arrays.asList(button1, button2);
+        return Arrays.asList(PageSection.builder()
+                                        .pageButtons(pageButtons)
+                                        .pageElements(pageElements)
                                         .build());
       }
     };

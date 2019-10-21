@@ -2,45 +2,71 @@
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
   <h2>${currentMenuName}</h2>
-  <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <#list elements as element>
+  <#list sections as section>
+    <#if (section.sectionTitle)??>
+      <hr>
+      <h3>${section.sectionTitle}</h3>
+    </#if>
+    <#if (section.pageButtons)??>
+    <div class="table-responsive">
+      <table class="table table-sm">
         <tr>
-          <th nowrap="true">
-            ${element.label}
-          </th>
+        <#list section.pageButtons as button>
           <td nowrap="true">
-            <#if (element.value)??>
-              ${element.value}
-            <#else>
-              &nbsp;
-            </#if>
+            <form action="${button.action}">
+              <button type="submit">${button.name}</button>
+            </form>
           </td>
-          <td width="100%">&nbsp;</td>
-        </tr>
-      </#list>
-    </table>
-  </div>
-  <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <tr>
-        <#assign count = 0>
-        <#list charts as chart>
-          <#if count == 2>
-            <#assign count = 0>
-            </tr><tr>
-          </#if>
-          <td>
-            <canvas id="${chart.id}" width="400" height="200"></canvas>
-          </td>
-          <#assign count++>
         </#list>
-        <#if count == 1>
-          <td>&nbsp;</td>
-        </#if>
-      </tr>
-    </table>
-  </div>
+        <td width="100%">&nbsp;</td>
+        </tr>
+      </table>
+    </div>
+    </#if>
+    <#if (section.pageElements)??>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <#list section.pageElements as element>
+          <tr>
+            <th nowrap="true">
+              ${element.label}
+            </th>
+            <td nowrap="true">
+              <#if (element.value)??>
+                ${element.value}
+              <#else>
+                &nbsp;
+              </#if>
+            </td>
+            <td width="100%">&nbsp;</td>
+          </tr>
+        </#list>
+      </table>
+    </div>
+    </#if>
+    <#if (section.chartElements)??>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <tr>
+          <#assign count = 0>
+          <#list section.chartElements as chart>
+            <#if count == 2>
+              <#assign count = 0>
+              </tr><tr>
+            </#if>
+            <td>
+              <canvas id="${chart.id}" width="400" height="200"></canvas>
+            </td>
+            <#assign count++>
+          </#list>
+          <#if count == 1>
+            <td>&nbsp;</td>
+          </#if>
+        </tr>
+      </table>
+    </div>
+    </#if>
+  </#list>
 </main>
 
 <#include "chart.html">
