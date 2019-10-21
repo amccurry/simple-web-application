@@ -16,6 +16,16 @@ git pull origin repository
 
 mvn install:install-file \
  -DgroupId=swa \
+ -DartifactId=swa \
+ -Dversion=${VERSION} \
+ -Dpackaging=pom \
+ -DgeneratePom=false \
+ -Dfile=${DIR}/pom.xml \
+ -DlocalRepositoryPath=. \
+ -DcreateChecksum=true
+
+mvn install:install-file \
+ -DgroupId=swa \
  -DartifactId=swa-app \
  -Dversion=${VERSION} \
  -Dfile=${DIR}/swa-app/target/swa-app-${VERSION}.jar \
