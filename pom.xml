@@ -4,7 +4,7 @@
 	<groupId>swa</groupId>
 	<artifactId>swa</artifactId>
 	<packaging>pom</packaging>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>swa</name>
 
 	<modules>
