@@ -23,6 +23,7 @@ import swa.spi.Table;
 
 public class SWABuilder {
 
+  private static final String CHARTS = "charts";
   private static final String APPLICATION_NAME = "applicationName";
   private static final String PAGE_HTML = "page.html";
   private static final String ERROR_MESSAGE = "errorMessage";
@@ -187,7 +188,9 @@ public class SWABuilder {
         Map<String, String[]> map = request.queryMap()
                                            .toMap();
         Map<String, Object> model = createModel(page);
-        model.put(ELEMENTS, page.getElements(map, request.splat()));
+        String[] splat = request.splat();
+        model.put(ELEMENTS, page.getElements(map, splat));
+        model.put(CHARTS, page.getCharts(map, splat));
         return new ModelAndView(model, PAGE_HTML);
       } catch (Exception e) {
         Map<String, Object> model = createModel(page);

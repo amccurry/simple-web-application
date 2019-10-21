@@ -21,6 +21,28 @@
       </#list>
     </table>
   </div>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <tr>
+        <#assign count = 0>
+        <#list charts as chart>
+          <#if count == 2>
+            <#assign count = 0>
+            </tr><tr>
+          </#if>
+          <td>
+            <canvas id="${chart.id}" width="400" height="200"></canvas>
+          </td>
+          <#assign count++>
+        </#list>
+        <#if count == 1>
+          <td>&nbsp;</td>
+        </#if>
+      </tr>
+    </table>
+  </div>
 </main>
+
+<#include "chart.html">
 
 <#include "footer.html">

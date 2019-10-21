@@ -7,6 +7,8 @@ import java.util.Map;
 
 import spark.Service;
 import swa.SWABuilder;
+import swa.spi.ChartDataset;
+import swa.spi.ChartElement;
 import swa.spi.CheckBoxFormElement;
 import swa.spi.Column;
 import swa.spi.Form;
@@ -194,6 +196,50 @@ public class Example {
                                         .value("test")
                                         .build());
       }
+
+      @Override
+      public List<ChartElement> getCharts(Map<String, String[]> queryParams, String[] splat) throws Exception {
+
+        ChartDataset dataset1 = ChartDataset.builder()
+                                            .label("abc")
+                                            .values(Arrays.asList(1, 2, 3, 4))
+                                            .build();
+        ChartDataset dataset2 = ChartDataset.builder()
+                                            .label("def")
+                                            .values(Arrays.asList(4, 3, 2, 1))
+                                            .build();
+        ChartDataset dataset3 = ChartDataset.builder()
+                                            .label("zxd")
+                                            .values(Arrays.asList(1, 4, 3, 2))
+                                            .build();
+
+        ChartElement chart1 = ChartElement.builder()
+                                          .datasets(Arrays.asList(dataset1, dataset2, dataset3))
+                                          .chartLabels(Arrays.asList("a", "b", "c", "d"))
+                                          .build();
+
+        ChartDataset dataset4 = ChartDataset.builder()
+                                            .label("zxd")
+                                            .values(Arrays.asList(1, 4, 3, 2))
+                                            .build();
+
+        ChartElement chart2 = ChartElement.builder()
+                                          .datasets(Arrays.asList(dataset4))
+                                          .chartLabels(Arrays.asList("e", "f", "g", "h"))
+                                          .build();
+
+        ChartDataset dataset5 = ChartDataset.builder()
+                                            .label("zxd")
+                                            .values(Arrays.asList(1, 4, 3, 2))
+                                            .build();
+
+        ChartElement chart3 = ChartElement.builder()
+                                          .datasets(Arrays.asList(dataset5))
+                                          .chartLabels(Arrays.asList("e", "f", "g", "h"))
+                                          .build();
+        return Arrays.asList(chart1, chart2, chart3);
+      }
+
     };
 
     Page page2 = new Page() {
