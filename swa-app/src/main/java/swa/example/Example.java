@@ -63,6 +63,13 @@ public class Example {
       public List<String> getHeaders(Map<String, String[]> queryParams) {
         return Arrays.asList("col1", "col2");
       }
+
+      @Override
+      public Link execute(String action, String[] ids) throws Exception {
+        System.out.println(action + " " + Arrays.asList(ids));
+        return Link.root();
+      }
+
     };
 
     Table table2 = new Table() {

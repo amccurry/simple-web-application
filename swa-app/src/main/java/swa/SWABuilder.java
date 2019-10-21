@@ -23,6 +23,7 @@ import swa.spi.Table;
 
 public class SWABuilder {
 
+  private static final String TABLEID = "tableid";
   private static final String SECTIONS = "sections";
   private static final String APPLICATION_NAME = "applicationName";
   private static final String PAGE_HTML = "page.html";
@@ -42,7 +43,6 @@ public class SWABuilder {
   private static final String CURRENT_MENU_NAME = "currentMenuName";
   private static final String WINDOW_TITLE = "windowTitle";
   private static final String PUBLIC = "/public";
-  private static final String ID = "id";
   private static final String ACTION = "action";
   private static final String NAMED_MENUS = "namedMenus";
 
@@ -203,7 +203,7 @@ public class SWABuilder {
     return (request, response) -> {
       try {
         String action = request.queryParams(ACTION);
-        response.redirect(table.execute(action, request.queryParamsValues(ID))
+        response.redirect(table.execute(action, request.queryParamsValues(TABLEID))
                                .toString());
         return null;
       } catch (Exception e) {
