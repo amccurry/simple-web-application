@@ -10,13 +10,13 @@ import lombok.Value;
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class PageButton {
+public class PageButton implements PageAction {
 
   String name;
 
-  String action;
+  String link;
 
   @Builder.Default
-  String method = "get";
+  PageActionType type = PageActionType.BUTTON;
 
 }

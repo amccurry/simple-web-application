@@ -16,9 +16,11 @@ import swa.spi.FormElement;
 import swa.spi.Link;
 import swa.spi.Option;
 import swa.spi.Page;
+import swa.spi.PageAction;
 import swa.spi.PageButton;
 import swa.spi.PageElement;
 import swa.spi.PageSection;
+import swa.spi.PageSubmit;
 import swa.spi.ReadOnlyFormElement;
 import swa.spi.Row;
 import swa.spi.SelectFormElement;
@@ -286,17 +288,17 @@ public class Example {
                                                                   .label("label1")
                                                                   .value("test")
                                                                   .build());
-        PageButton button1 = PageButton.builder()
+        PageSubmit button1 = PageSubmit.builder()
                                        .action("/")
                                        .name("Home")
                                        .build();
         PageButton button2 = PageButton.builder()
-                                       .action("/")
+                                       .link("/test1?test=nice")
                                        .name("Root")
                                        .build();
-        List<PageButton> pageButtons = Arrays.asList(button1, button2);
+        List<PageAction> pageActions = Arrays.asList(button1, button2);
         return Arrays.asList(PageSection.builder()
-                                        .pageButtons(pageButtons)
+                                        .pageActions(pageActions)
                                         .pageElements(pageElements)
                                         .build());
       }

@@ -1,7 +1,5 @@
 package swa.spi;
 
-import java.util.List;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,14 +10,16 @@ import lombok.Value;
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class PageSection {
+public class PageSubmit implements PageAction {
 
-  String sectionTitle;
+  String name;
 
-  List<PageAction> pageActions;
+  String action;
 
-  List<PageElement> pageElements;
+  @Builder.Default
+  String method = "get";
 
-  List<ChartElement> chartElements;
+  @Builder.Default
+  PageActionType type = PageActionType.SUBMIT;
 
 }
