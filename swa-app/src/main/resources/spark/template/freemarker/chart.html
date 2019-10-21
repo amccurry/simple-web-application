@@ -47,7 +47,14 @@
             ]
         },
         options: {
-          responsive: false
+          responsive: false,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
         }
     });
   </#list>
