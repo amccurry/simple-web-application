@@ -1,0 +1,22 @@
+<div class="table-responsive">
+  <table class="table table-sm">
+    <tr>
+    <#list section.pageActions as pageAction>
+      <td nowrap="true">
+        <#switch pageAction.type>
+          <#case "SUBMIT">
+            <form action="${pageAction.action}" method="${pageAction.method}">
+              <button type="submit">${pageAction.name}</button>
+            </form>
+            <#break>
+          <#case "BUTTON">
+            <button onclick="window.location.href = '${pageAction.link}';">${pageAction.name}</button>
+            <#break>
+          <#default>
+        </#switch>
+      </td>
+    </#list>
+    <td width="100%">&nbsp;</td>
+    </tr>
+  </table>
+</div>

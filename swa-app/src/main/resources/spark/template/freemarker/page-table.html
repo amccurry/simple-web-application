@@ -1,0 +1,40 @@
+<#list section.tableElements as element>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <#list element.headers as header>
+            <th nowrap="true">${header}</th>
+          </#list>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <#list element.rows as row>
+          <tr>
+            <#list row.columns as column>
+              <td nowrap="true">
+                <#if (column.link)??>
+                  <a href="${column.link}">
+                    <#if (column.value)??>
+                      ${column.value}
+                    <#else>
+                      &nbsp;
+                    </#if>
+                  </a>
+                <#else>
+                  <#if (column.value)??>
+                    ${column.value}
+                  <#else>
+                    &nbsp;
+                  </#if>
+                </#if>
+              </td>
+            </#list>
+            <td width="100%">&nbsp;</td>
+          </tr>
+        </#list>
+      </tbody>
+    </table>
+  </div>
+</#list>

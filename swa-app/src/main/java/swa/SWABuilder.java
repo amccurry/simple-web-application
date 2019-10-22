@@ -157,11 +157,19 @@ public class SWABuilder {
                               .toString());
         return null;
       } catch (Exception e) {
+        logError(e);
         Map<String, Object> model = createModel(form);
         model.put(ERROR_MESSAGE, e.getMessage());
         return new ModelAndView(model, ERROR_HTML);
       }
     };
+  }
+
+  private void logError(Exception e) {
+    Logger logger = _logger.get();
+    if (logger != null) {
+      logger.error(e.getMessage(), e);
+    }
   }
 
   private TemplateViewRoute getForm(Form form) {
@@ -175,6 +183,7 @@ public class SWABuilder {
         model.put(ELEMENTS, form.getElements(map, request.splat()));
         return new ModelAndView(model, FORM_HTML);
       } catch (Exception e) {
+        logError(e);
         Map<String, Object> model = createModel(form);
         model.put(ERROR_MESSAGE, e.getMessage());
         return new ModelAndView(model, ERROR_HTML);
@@ -192,6 +201,7 @@ public class SWABuilder {
         model.put(SECTIONS, page.getPagesSections(map, splat));
         return new ModelAndView(model, PAGE_HTML);
       } catch (Exception e) {
+        logError(e);
         Map<String, Object> model = createModel(page);
         model.put(ERROR_MESSAGE, e.getMessage());
         return new ModelAndView(model, ERROR_HTML);
@@ -207,6 +217,7 @@ public class SWABuilder {
                                .toString());
         return null;
       } catch (Exception e) {
+        logError(e);
         Map<String, Object> model = createModel(table);
         model.put(ERROR_MESSAGE, e.getMessage());
         return new ModelAndView(model, ERROR_HTML);
@@ -225,6 +236,7 @@ public class SWABuilder {
         model.put(ACTIONS, table.getActions(map));
         return new ModelAndView(model, TABLE_HTML);
       } catch (Exception e) {
+        logError(e);
         Map<String, Object> model = createModel(table);
         model.put(ERROR_MESSAGE, e.getMessage());
         return new ModelAndView(model, ERROR_HTML);

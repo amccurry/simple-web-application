@@ -42,14 +42,18 @@
                 <td nowrap="true">
                   <#if (column.link)??>
                     <a href="${column.link}">
-                  </#if>
-                  <#if (column.value)??>
-                    ${column.value}
-                  <#else>
-                    &nbsp;
-                  </#if>
-                  <#if (column.link)??>
+                      <#if (column.value)??>
+                        ${column.value}
+                      <#else>
+                        &nbsp;
+                      </#if>
                     </a>
+                  <#else>
+                    <#if (column.value)??>
+                      ${column.value}
+                    <#else>
+                      &nbsp;
+                    </#if>
                   </#if>
                 </td>
               </#list>

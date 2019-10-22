@@ -31,6 +31,7 @@
                 backgroundColor: '${dataset.color}',
                 borderColor: '${dataset.color}',
                 fill: false,
+                lineTension: 0,
                 data: [
                 <#assign firstValue=true>
                 <#list dataset.values as value>
@@ -54,6 +55,14 @@
                 beginAtZero: true
               }
             }]
+          },
+          animation: {
+            duration: 0
+          },
+          elements: {
+            point:{
+              radius: 0
+            }
           }
         }
     });

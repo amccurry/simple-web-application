@@ -25,6 +25,7 @@ import swa.spi.ReadOnlyFormElement;
 import swa.spi.Row;
 import swa.spi.SelectFormElement;
 import swa.spi.Table;
+import swa.spi.TableElement;
 import swa.spi.TextFormElement;
 
 public class Example {
@@ -241,6 +242,30 @@ public class Example {
                                           .chartLabels(Arrays.asList("e", "f", "g", "h"))
                                           .build();
 
+        List<Column> columns = Arrays.asList(Column.builder()
+                                                   .value("val1")
+                                                   .build(),
+            Column.builder()
+                  .value("val2")
+                  .build(),
+            Column.builder()
+                  .value("val3")
+                  .build());
+
+        List<Row> rows = Arrays.asList(Row.builder()
+                                          .columns(columns)
+                                          .build(),
+            Row.builder()
+               .columns(columns)
+               .build(),
+            Row.builder()
+               .columns(columns)
+               .build());
+        TableElement tableElement = TableElement.builder()
+                                                .headers(Arrays.asList("col1", "col2", "col3"))
+                                                .rows(rows)
+                                                .build();
+
         return Arrays.asList(PageSection.builder()
                                         .sectionTitle("section title1")
                                         .chartElements(Arrays.asList(chart1, chart2, chart3))
@@ -248,6 +273,7 @@ public class Example {
                                                                                .label("label1")
                                                                                .value("test")
                                                                                .build()))
+                                        .tableElements(Arrays.asList(tableElement))
                                         .build());
       }
 

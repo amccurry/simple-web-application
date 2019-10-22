@@ -12,16 +12,10 @@ import lombok.Value;
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class PageSection {
+public class TableElement {
 
-  String sectionTitle;
+  List<String> headers;
 
-  List<PageAction> pageActions;
-
-  List<PageElement> pageElements;
-
-  List<ChartElement> chartElements;
-
-  List<TableElement> tableElements;
-
+  List<Row> rows;
+  
 }

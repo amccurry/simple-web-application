@@ -8,75 +8,20 @@
       <h3>${section.sectionTitle}</h3>
     </#if>
     <#if (section.pageActions)??>
-    <div class="table-responsive">
-      <table class="table table-sm">
-        <tr>
-        <#list section.pageActions as pageAction>
-          <td nowrap="true">
-            <#switch pageAction.type>
-              <#case "SUBMIT">
-                <form action="${pageAction.action}" method="${pageAction.method}">
-                  <button type="submit">${pageAction.name}</button>
-                </form>
-                <#break>
-              <#case "BUTTON">
-                <button onclick="window.location.href = '${pageAction.link}';">${pageAction.name}</button>
-                <#break>
-              <#default>
-            </#switch>
-          </td>
-        </#list>
-        <td width="100%">&nbsp;</td>
-        </tr>
-      </table>
-    </div>
+      <#include "page-action.html">
     </#if>
     <#if (section.pageElements)??>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <#list section.pageElements as element>
-          <tr>
-            <th nowrap="true">
-              ${element.label}
-            </th>
-            <td nowrap="true">
-              <#if (element.value)??>
-                ${element.value}
-              <#else>
-                &nbsp;
-              </#if>
-            </td>
-            <td width="100%">&nbsp;</td>
-          </tr>
-        </#list>
-      </table>
-    </div>
+      <#include "page-info.html">
     </#if>
     <#if (section.chartElements)??>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <tr>
-          <#assign count = 0>
-          <#list section.chartElements as chart>
-            <#if count == 2>
-              <#assign count = 0>
-              </tr><tr>
-            </#if>
-            <td>
-              <canvas id="${chart.id}" width="400" height="200"></canvas>
-            </td>
-            <#assign count++>
-          </#list>
-          <#if count == 1>
-            <td>&nbsp;</td>
-          </#if>
-        </tr>
-      </table>
-    </div>
+      <#include "page-chart.html">
+    </#if>
+    <#if (section.tableElements)??>
+      <#include "page-table.html">
     </#if>
   </#list>
 </main>
 
-<#include "chart.html">
+<#include "page-chart.js">
 
 <#include "footer.html">
