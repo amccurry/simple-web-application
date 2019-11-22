@@ -159,16 +159,37 @@ public class SWABuilder {
       } catch (Exception e) {
         logError(e);
         Map<String, Object> model = createModel(form);
-        model.put(ERROR_MESSAGE, e.getMessage());
+        setupErrorMessage(e, model);
         return new ModelAndView(model, ERROR_HTML);
       }
     };
   }
 
+  private void setupErrorMessage(Exception e, Map<String, Object> model) {
+    String message = getMessage(e);
+    if (message != null) {
+      model.put(ERROR_MESSAGE, message);
+    } else {
+      model.put(ERROR_MESSAGE, e.getClass()
+                                .toString());
+    }
+  }
+
+  private String getMessage(Throwable t) {
+    if (t == null) {
+      return null;
+    }
+    if (t.getMessage() != null) {
+      return t.getMessage();
+    } else {
+      return getMessage(t.getCause());
+    }
+  }
+
   private void logError(Exception e) {
     Logger logger = _logger.get();
     if (logger != null) {
-      logger.error(e.getMessage(), e);
+      logger.error(getMessage(e), e);
     }
   }
 
@@ -185,7 +206,7 @@ public class SWABuilder {
       } catch (Exception e) {
         logError(e);
         Map<String, Object> model = createModel(form);
-        model.put(ERROR_MESSAGE, e.getMessage());
+        setupErrorMessage(e, model);
         return new ModelAndView(model, ERROR_HTML);
       }
     };
@@ -203,7 +224,7 @@ public class SWABuilder {
       } catch (Exception e) {
         logError(e);
         Map<String, Object> model = createModel(page);
-        model.put(ERROR_MESSAGE, e.getMessage());
+        setupErrorMessage(e, model);
         return new ModelAndView(model, ERROR_HTML);
       }
     };
@@ -219,7 +240,7 @@ public class SWABuilder {
       } catch (Exception e) {
         logError(e);
         Map<String, Object> model = createModel(table);
-        model.put(ERROR_MESSAGE, e.getMessage());
+        setupErrorMessage(e, model);
         return new ModelAndView(model, ERROR_HTML);
       }
     };
@@ -238,7 +259,7 @@ public class SWABuilder {
       } catch (Exception e) {
         logError(e);
         Map<String, Object> model = createModel(table);
-        model.put(ERROR_MESSAGE, e.getMessage());
+        setupErrorMessage(e, model);
         return new ModelAndView(model, ERROR_HTML);
       }
     };
